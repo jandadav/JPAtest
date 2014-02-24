@@ -21,40 +21,40 @@ import static org.junit.Assert.*;
  */
 public class BookTest {
     
-    private static EntityManagerFactory emf;
-    
-    private static EntityManager em;
     
     
+    {
+  
+    }
     
     public BookTest() {
     }
     
-    //private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPATestPU");
-    //private EntityManager em;
-    //private EntityTransaction tx;
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAtestPU");
+    private EntityManager em;
+    private EntityTransaction tx;
      
     
     @BeforeClass
     public static void setUpClass() {
-           emf = Persistence.createEntityManagerFactory("JPATestPU");
-           em = emf.createEntityManager();
+        
+   
     }
     
     @AfterClass
     public static void tearDownClass() {
-        if (em != null) em.close();
+        
     }
     
     
     @Before
     public void setUp(){
-      
+      em = emf.createEntityManager();
     }
     
     @After
     public void tearDown() {
-        
+        if (em != null) em.close();
     }
 
     /**
@@ -74,14 +74,17 @@ public class BookTest {
 */
     
     @Test//(expected = Exception.class)
-    public void testConnectionToDatabase() {
+    public void testDataInsert() {
         System.out.println("connectionToDatabase");
+        //Book(String title, Float price, String description, String isbn, Integer nbOfPage, Boolean illustrations) {
+        Book testSubject = new Book("H2G2", 34.4f, "desc", "isbn", 34, true);
         
-        System.out.println(em.toString());
-
+        //tx.begin();
+        em.persist(testSubject);
+        //tx.commit();
+        System.out.println("Persisted as " + testSubject.getId().toString());
         
-        
-        //assertTrue(  );
+        assertTrue( testSubject.getId() > 0 );
         //fail("prototype");
     }
     
