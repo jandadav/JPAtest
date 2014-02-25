@@ -7,13 +7,14 @@
 package jpatest;
 
 
+import java.util.List;
 import javax.persistence.*;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -50,6 +51,18 @@ public class BookTest {
     @Before
     public void setUp(){
       em = emf.createEntityManager();
+      em.persist(new Book("Grand Marnier", 12f, "Tera", "isbn546", 12, false));
+      em.persist(new Book("Holly Molly", 12f, "Tera", "isbn546", 12, false));
+      em.persist(new Book("Fookeroo", 12f, "Tera", "isbn546", 12, false));
+      em.persist(new Book("Ma Nigger", 12f, "Tera", "isbn546", 12, false));
+      em.persist(new Book("Lobsterette", 12f, "Tera", "isbn546", 12, false));
+      em.persist(new Book("Mamma Mia", 12f, "Tera", "isbn546", 12, false));
+      em.persist(new Book("Le Derp", 12f, "Tera", "isbn546", 12, false));
+      em.persist(new Book("Terra", 12f, "Tera", "isbn546", 12, false));
+      em.persist(new Book("GTA", 12f, "Tera", "isbn546", 12, false));
+      em.persist(new Book("Booya", 12f, "Tera", "isbn546", 12, false));
+      
+      
     }
     
     @After
@@ -82,9 +95,20 @@ public class BookTest {
         //tx.begin();
         em.persist(testSubject);
         //tx.commit();
-        System.out.println("Persisted as " + testSubject.getId().toString());
+        System.out.println("Persisted with ID: " + testSubject.getId().toString());
+        System.out.println("Actual DB Contents:");
         
-        assertTrue( testSubject.getId() > 0 );
+        List<Book> dbContents= (List<Book>)em.createQuery("SELECT b FROM Book b").getResultList();
+        
+        System.out.println("Query returns: "+ dbContents.size());
+        
+        for (Book b: dbContents){
+            System.out.println(b.getId()+" , "+b.getTitle());
+        }
+        
+        
+  
+        assertTrue( dbContents.size() > 0 );
         //fail("prototype");
     }
     
