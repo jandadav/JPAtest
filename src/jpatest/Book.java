@@ -51,10 +51,6 @@ public class Book implements Serializable {
         this.illustrations = illustrations;
     }
     
-    
-    
-    
-
     public Long getId() {
         return id;
     }

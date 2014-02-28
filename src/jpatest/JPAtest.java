@@ -16,7 +16,8 @@ import javax.persistence.Persistence;
  * @author David
  */
 public class JPAtest {
-    
+
+    /*
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAtestPU");
     private EntityManager em;
     private EntityTransaction tx;
@@ -24,6 +25,7 @@ public class JPAtest {
         emf = Persistence.createEntityManagerFactory("JPATestPU");
         em = emf.createEntityManager();
     }
+    */
     
     /**
      * @param args the command line arguments
